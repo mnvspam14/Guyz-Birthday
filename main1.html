@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎉 Happy Birthday! 🎂</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Pacifico&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Fredoka", cursive;
+        background: linear-gradient(
+          45deg,
+          #ff9a9e,
+          #fad0c4,
+          #ffdde1,
+          #a1c4fd,
+          #c2e9fb
+        );
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        perspective: 1000px;
+      }
+
+      @keyframes gradientBG {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      h1 {
+        font-family: "Pacifico", cursive;
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, #ff1493, #ff69b4, #ffb6c1);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: gradientText 5s ease infinite;
+        margin-bottom: 10px;
+        text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes gradientText {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .page-content {
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .birthday-header {
+        width: 90%;
+        max-width: 500px;
+        padding: 15px 25px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .birthday-message {
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: #444;
+      }
+
+      .cake-icon {
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      #media-container {
+        width: 90%;
+        max-width: 500px;
+        height: 60%;
+        position: relative;
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),
+          0 15px 12px rgba(0, 0, 0, 0.22);
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+      }
+
+      .media {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out, transform 1.5s ease;
+        transform: scale(1.1);
+      }
+
+      .visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .navigation-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 6;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .prev-arrow {
+        left: 10px;
+      }
+
+      .next-arrow {
+        right: 10px;
+      }
+
+      .media-controls {
+        position: absolute;
+        bottom: 15px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        z-index: 5;
+      }
+
+      .media-dot {
+        width: 10px;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .media-dot.active {
+        background: white;
+        transform: scale(1.3);
+      }
+
+      .confetti-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .confetti {
+        position: absolute;
+        animation: confetti-fall 10s linear infinite;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .balloon-container {
+        position: absolute;
+        bottom: -100px;
+        animation: balloon-float 15s ease-in-out infinite;
+        z-index: 0;
+        opacity: 0.7;
+      }
+
+      @keyframes balloon-float {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-100vh);
+        }
+      }
+
+      .balloon {
+        width: 50px;
+        height: 60px;
+        background: red;
+        border-radius: 50%;
+        animation: balloon-sway 5s ease-in-out infinite;
+      }
+
+      .balloon::after {
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 70px;
+        background: rgba(0, 0, 0, 0.2);
+        bottom: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      @keyframes balloon-sway {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(20px);
+        }
+      }
+
+      #music-control {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+      }
+
+      #music-control:hover {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.5);
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+        .birthday-message {
+          font-size: 1rem;
+        }
+        #media-container {
+          height: 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <!-- Music -->
+    <audio id="background-music" loop>
+      <source src="background-music.mp3" type="audio/mp3" />
+    </audio>
+
+    <div id="music-control">
+      <i class="fas fa-volume-up" id="music-icon"></i>
+    </div>
+
+    <div class="page-content">
+      <div class="birthday-header">
+        <h1>
+          <i class="fa-solid fa-party-horn cake-icon"></i>
+          Happy Birthday Guyz! 🎂
+          <i class="fa-solid fa-cake-candles cake-icon"></i>
+        </h1>
+        <p class="birthday-message">
+          Wishing you all a magical year ahead filled with unforgettable
+          moments! Stay amazing and keep shining! 🎈✨
+        </p>
+      </div>
+
+      <div id="media-container">
+        <img class="media" src="Image1.jpg" />
+        <img class="media" src="Image2.jpg" />
+        <img class="media" src="Image3.jpg" />
+        <img class="media" src="Image4.jpg" />
+        <img class="media" src="Image5.jpg" />
+        <img class="media" src="Image6.jpg" />
+        <img class="media" src="Image7.jpg" />
+
+        <div class="navigation-arrow prev-arrow">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="navigation-arrow next-arrow">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="media-controls" id="media-controls"></div>
+      </div>
+    </div>
+
+    <script>
+      // Confetti
+      const confettiContainer = document.getElementById("confetti-container");
+      const confettiColors = [
+        "#ff718d",
+        "#fdffab",
+        "#90d7ff",
+        "#ffa8e2",
+        "#adff8a",
+        "#ffda77",
+      ];
+      const confettiShapes = ["circle", "triangle", "square"];
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        const color =
+          confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        const size = Math.floor(Math.random() * 10) + 5;
+        const shape =
+          confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.background = color;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        if (shape === "circle") confetti.style.borderRadius = "50%";
+        if (shape === "triangle") {
+          confetti.style.width = "0";
+          confetti.style.height = "0";
+          confetti.style.borderLeft = `${size / 2}px solid transparent`;
+          confetti.style.borderRight = `${size / 2}px solid transparent`;
+          confetti.style.borderBottom = `${size}px solid ${color}`;
+          confetti.style.background = "transparent";
+        }
+        confetti.style.animationDuration = `${Math.random() * 5 + 5}s`;
+        confetti.style.animationDelay = `${Math.random() * 5}s`;
+        confettiContainer.appendChild(confetti);
+      }
+
+      // Balloons
+      const balloonColors = [
+        "#ff5252",
+        "#ffb142",
+        "#33d9b2",
+        "#34ace0",
+        "#706fd3",
+        "#ff793f",
+      ];
+      for (let i = 0; i < 20; i++) {
+        const balloonContainer = document.createElement("div");
+        balloonContainer.className = "balloon-container";
+        balloonContainer.style.left = `${Math.random() * 100}%`;
+        balloonContainer.style.animationDelay = `${Math.random() * 10}s`;
+
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.backgroundColor =
+          balloonColors[Math.floor(Math.random() * balloonColors.length)];
+        balloon.style.transform = `scale(${Math.random() * 0.5 + 0.7})`;
+
+        balloonContainer.appendChild(balloon);
+        document.body.appendChild(balloonContainer);
+      }
+
+      // Media slideshow
+      let currentMediaIndex = 0;
+      const mediaElements = document.querySelectorAll(".media");
+      const mediaControls = document.getElementById("media-controls");
+      const dots = [];
+
+      mediaElements.forEach((_, index) => {
+        const dot = document.createElement("div");
+        dot.className = "media-dot";
+        if (index === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => showMedia(index));
+        mediaControls.appendChild(dot);
+        dots.push(dot);
+      });
+
+      function showMedia(index) {
+        if (index < 0) index = mediaElements.length - 1;
+        if (index >= mediaElements.length) index = 0;
+        currentMediaIndex = index;
+
+        mediaElements.forEach((el, i) => {
+          el.classList.toggle("visible", i === index);
+          dots[i].classList.toggle("active", i === index);
+        });
+      }
+
+      let timer = setInterval(() => showMedia(currentMediaIndex + 1), 5000);
+
+      document.querySelector(".prev-arrow").addEventListener("click", () => {
+        clearInterval(timer);
+        showMedia(currentMediaIndex - 1);
+        timer = setInterval(() => showMedia(currentMediaIndex + 1), 5000);
+      });
+
+      document.querySelector(".next-arrow").addEventListener("click", () => {
+        clearInterval(timer);
+        showMedia(currentMediaIndex + 1);
+        timer = setInterval(() => showMedia(currentMediaIndex + 1), 5000);
+      });
+
+      showMedia(0);
+
+      // Music controls
+      const backgroundMusic = document.getElementById("background-music");
+      const musicControl = document.getElementById("music-control");
+      const musicIcon = document.getElementById("music-icon");
+
+      let isPlaying = false;
+
+      musicControl.addEventListener("click", () => {
+        if (isPlaying) {
+          backgroundMusic.pause();
+          musicIcon.classList.replace("fa-volume-up", "fa-volume-mute");
+        } else {
+          backgroundMusic.play();
+          musicIcon.classList.replace("fa-volume-mute", "fa-volume-up");
+        }
+        isPlaying = !isPlaying;
+      });
+    </script>
+  </body>
+</html>
